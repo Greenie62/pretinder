@@ -6,6 +6,14 @@ const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3005;
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+
+	app.get('*', (request, response) => {
+		response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+	})
+}
+
 
 mongoose.connect(`mongodb+srv://justin:meh321@cluster0-lfuba.mongodb.net/pretinderdb?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
