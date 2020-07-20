@@ -6,10 +6,18 @@ const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3005;
 
+
+mongoose.connect(`mongodb+srv://justin:meh321@cluster0-lfuba.mongodb.net/pretinderdb?retryWrites=true&w=majority`,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+},console.log(`Connected to mongooseDB`))
+
+
 app.use(cors());
 app.use(express.json());
 
 
+app.use("/db",require("./routes/db"));
 
 
 

@@ -4,17 +4,17 @@ import socialtwo from "../../assets/social/socialtwo.jpg"
 
 
 
-const Header = () =>{
+const Header = ({isNew,setIsNew}) =>{
     const [pics, setPics] = useState([social, socialtwo])
     const [counter,setCounter] = useState(0);
 
 
  
 
-    useEffect(()=>{
-        slideshow()
+    // useEffect(()=>{
+    //     slideshow()
      
-    },[])
+    // },[])
 
 
     const slideshow=()=>{
@@ -42,7 +42,10 @@ const Header = () =>{
             <h1 className='landingh1'>Tinder App</h1>
             <h4 className="landingh4">You find love. ❤️</h4>
             <h5 className="landingh5">I find a job. 💰 </h5>
+            <button onClick={()=>setIsNew(!isNew)} className="toggle_form_btn">{isNew ? 'Already a Member?' : 'First time?'}</button>
+
             </div>
+
         </div>
     )
 
