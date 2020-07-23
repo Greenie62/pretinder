@@ -1,0 +1,128 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    position:relative;
+}
+
+.dashboard_header_parent{
+    height:10vh;
+    width:100%;
+}
+
+.dashboard_header_content, .dashboard_header_overlay{
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.header_overlay_img{
+    height:100%;
+    width:100%;
+}
+
+.dashboard_header_content{
+    background:red;
+    opacity:.7;
+}
+
+
+.dashboard_h1{
+    font-family:Cedarville Cursive, cursive;
+    font-size:27px;
+    top:5px;
+}
+
+.neoncard{
+    border-radius:10%;
+    /* border:2px solid black; */
+    text-align:center;
+    width:150px;
+    left:55%;
+    top:-25px;
+    animation:flicker 6s infinite;
+
+}
+
+.neon_h2{
+    text-transform:uppercase;
+}
+
+.panel_content_container{
+    width:100%;
+    height:60vh;
+}
+
+.panel_card{
+    height:100%;
+    width:100%;
+    outline:1px solid black;
+    display:flex;
+}
+
+.panel_column{
+    width:25%;
+    height:100%;
+    outline:1px solid yellow;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.arrow_icon{
+    border-radius:50%;
+    background:linear-gradient(to right,rgb(219, 36, 36),rgb(219, 74, 74));
+    border:2px solid black;
+    cursor:pointer;
+    box-shadow:0 0 3px 2px rgb(0,0,0,0.8);
+    height:100px;
+    width:75px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+
+
+.panel_profile_column{
+    width:50%;
+    height:100%;
+}
+
+.image_frame_parent{
+    height:90%;
+    top:10%;
+    width:100%;
+}
+
+.image_frame{
+    height:70%;
+    left:5%;
+    /* top:10%; */
+    width:90%;
+    border-radius:45%;
+    border:2px solid black;
+}
+
+.main_img{
+    height:100%;
+    border-radius: 45%;
+    width:100%;
+
+}
+
+.image_info_div{
+    height:30%;
+    width:100%;
+    text-align:center;
+}
+
+.h4_image_name{
+    top:25%;
+}
+
+
+
+
+

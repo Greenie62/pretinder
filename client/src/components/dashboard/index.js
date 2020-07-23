@@ -1,3 +1,4 @@
 export {default as Navbar} from "./Navbar"
 export {default as Reactions} from "./Reactions"
-export {default as Card} from "./Card"
+export {default as Panel} from "./Panel"
+export {default as Header} from "./Header"

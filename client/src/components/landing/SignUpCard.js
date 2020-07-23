@@ -7,6 +7,7 @@ const SignUpCard = ({isNew,postUser}) => {
     const [dob,setDOB] = useState("")
     const [month,setMonth] = useState("")
     const [day,setDay] = useState("")
+    const [searchGender,setSearchGender] = useState("")
     const [year,setYear] = useState("")
 
 
@@ -23,7 +24,7 @@ const SignUpCard = ({isNew,postUser}) => {
     const enterSignUp=()=>{
 
         let user={
-            username,password,interestedIn,dob:`${formatMonth(month)} ${day} ${year}`
+            username,password,interestedIn,searchGender,dob:`${formatMonth(month)} ${day} ${year}`
         }
         console.log(formatMonth(month),day,year)
         console.log(user)
@@ -51,25 +52,55 @@ const SignUpCard = ({isNew,postUser}) => {
 
     return (
         <div className={isNew ? "show_signup_card" : "signup_card"}>
-                <h3 className='signup_h3'>Sign Up Card</h3>
+                <h3 className='signup_h3'>Sign Up </h3>
                 <div className="signup_form">
                 <div className="form_div">
                 <label htmlFor="username">Username:</label>
-                    <input type="text" name="username" id="username" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="username..." autoComplete="off" autoFocus/>
+                    <input className="landinginput" type="text" name="username" id="username" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="username..." autoComplete="off" autoFocus/>
                     <br/>
                 <small className='sub-text'>Choose a username</small>
             </div>
             <div className="form_div">
                 <label htmlFor="password">Password:</label>
-                    <input type="text" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="password..." autoComplete="off"/>
+                    <input className="landinginput" type="text" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="password..." autoComplete="off"/>
                     <br/>
                 <small className='sub-text'>Choose a password</small>
             </div>
             <div className="form_div">
-                <label htmlFor="interested">Interested in:</label>
-                    <input type="text" name="interestedin" id="interestedin" value={interestedIn} onChange={(e)=>setInterestedIn(e.target.value)} placeholder="interested_in..." autoComplete="off"/>
+            <label htmlFor="interested">Interested in:</label>
+
+                <div className="dob_form_div">
+                <div className="dob_input_div">
+                
+                    <select className="dob_input landinginput"
+                            name="interestedin" 
+                            id="interestedin" 
+                            value={interestedIn} 
+                            onChange={(e)=>setInterestedIn(e.target.value)} 
+                            placeholder="interested_in...">
+                            <option value="casual">Casual</option>
+                            <option value="serious">Serious</option>
+                            <option value="naughty">Naughty</option>
+                    </select>
+                </div>
+                <div className="dob_input_div">
+                
+                <select className="dob_input landinginput"
+                        name="searchGender" 
+                        id="searchgender" 
+                        value={searchGender} 
+                        onChange={(e)=>setSearchGender(e.target.value)} 
+                        placeholder="search_gender..." 
+                        autoComplete="off">
+                    <option value="male">Guys</option>
+                    <option value="female">Girls</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
                     <br/>
-                <small className='sub-text'>Looking for a friend or...😈</small>
+                </div>
+                <small className='sub-text-caption'>Looking for a friend or...😈</small>
+
             </div>
 
         <div className='form_div'>
@@ -77,20 +108,20 @@ const SignUpCard = ({isNew,postUser}) => {
             <div className="dob_form_div">
                
                 <div className="dob_input_div">
-                    <select className="dob_input" value={month} onChange={(e)=>setMonth(e.target.value)} type="text" name="month" id="month" placeholder="month..." autoComplete="off">
+                    <select className="dob_input landinginput" value={month} onChange={(e)=>setMonth(e.target.value)} type="text" name="month" id="month" placeholder="month..." autoComplete="off">
                         {months.map(m=>(
                             <option key={m} value={m}>{m}</option>
                         ))}
                         </select>
                 </div>
                 <div className="dob_input_div">
-                <select className="dob_input" value={day} onChange={(e)=>setDay(e.target.value)} type="text" name="day" id="day" placeholder="day..." autoComplete="off">
+                <select className="dob_input landinginput" value={day} onChange={(e)=>setDay(e.target.value)} type="text" name="day" id="day" placeholder="day..." autoComplete="off">
                         {days.map((m,idx)=>(
                             <option key={idx+1} value={idx+1}>{idx+1}</option>
                         ))}
                         </select>                </div>
                 <div className="dob_input_div">
-                <select className="dob_input" value={year} onChange={(e)=>setYear(e.target.value)} type="text" name="year" id="year" placeholder="year..." autoComplete="off">
+                <select className="dob_input landinginput" value={year} onChange={(e)=>setYear(e.target.value)} type="text" name="year" id="year" placeholder="year..." autoComplete="off">
                         {years.map(m=>(
                             <option key={m} value={m}>{m}</option>
                         ))}

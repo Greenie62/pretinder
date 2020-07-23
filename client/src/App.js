@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import {BrowserRouter as Router, Route, Redirect} from "react-router-dom"
 import {Landing, Dashboard} from "./pages"
 
-import "./App.css"
+// import "./App.css"
 
 
 
@@ -23,7 +23,7 @@ const App = () =>{
         return(
             <Router>
                 {window.location.pathname === "/" ? <Redirect to="/landing"/> : null}
-                <Route exact path="/landing" component={Landing}/>
+                <Route exact path="/landing" render={(props)=><Landing {...props}/>}/>
                 <Route path="/dashboard" component={Dashboard}/>
             </Router>
         )

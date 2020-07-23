@@ -5,8 +5,9 @@ import ErrorCard from "./ErrorCard"
 import party from "../../assets/party.jpg"
 
 
-const Body = ({isNew}) => {
+const Body = (props) => {
     const [error,setError] = useState("")
+    const [errortwo,setErrorTwo] = useState("")
 
 
 
@@ -25,10 +26,57 @@ const Body = ({isNew}) => {
         .then(res=>{
             console.log(res)
             if(!res.isMember){
-                window.location.pathname="/dashboard"
+                setToStorage(res.dbuser)
+                setError(`Welcome ${res.dbuser.username}!`);
+                setErrorTwo("Redirecting you to the party!")
+                setTimeout(()=>{
+                    props.history.push("/dashboard")
+                },1500);
             }
             else{
                 setError(res.msg)
+                setErrorTwo("Please use the login")
+                setTimeout(()=>{
+                    setError("")
+                    setErrorTwo("")
+                },2000)
+            }
+        })
+    }
+
+    const setToStorage=(user)=>{
+        localStorage.setItem("user",JSON.stringify(user))
+    }
+
+
+    const postLogin=(user)=>{
+        fetch("/db/login",{
+            method:"POST",
+            headers:{
+                'Content-Type':"application/json"
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+
+            if(res.response){
+                setToStorage(res.dbuser)
+                setError(`Welcome ${res.dbuser.username}!`);
+                setErrorTwo("Redirecting you to the party!")
+                setTimeout(()=>{
+                    props.history.push("/dashboard")
+                },2000)
+            }
+            else{
+                setError(res.message);
+                console.log(res)
+                setTimeout(()=>{
+                    setError("")
+                    setErrorTwo("")
+                },2000)
+
             }
         })
     }
@@ -37,6 +85,7 @@ const Body = ({isNew}) => {
     return (
     <div>
          <div className='landing_body'>
+            
                 <div className="landing_body_overlay">
                     <img src={party} className="overlay_img" alt="img"/>
                 </div>
@@ -47,11 +96,13 @@ const Body = ({isNew}) => {
                 </div>
            </div>
            
-        
 
-        <ErrorCard error={error}/>
-        <ClientCard isNew={isNew}
+       
+        <ClientCard isNew={props.isNew}
+                    error={error}
+                    postLogin={postLogin}
                     postUser={postUser}/>
+        
         <div className="landing_body_footer">
             <p className="landing_footer_p">Footer&copy;👣</p>
 

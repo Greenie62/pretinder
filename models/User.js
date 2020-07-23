@@ -16,6 +16,9 @@ const userschema = new Schema({
     interestedIn:{
         type:String,
     },
+    searchGender:{
+        type:String,
+    },
     location:{
         type:String,
         default:"Private"

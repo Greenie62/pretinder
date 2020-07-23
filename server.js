@@ -26,6 +26,7 @@ app.use(express.json());
 
 
 app.use("/db",require("./routes/db"));
+app.use("/api",require("./routes/api"))
 
 
 

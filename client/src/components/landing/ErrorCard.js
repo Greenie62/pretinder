@@ -1,9 +1,10 @@
 import React from 'react'
 
-const ErrorCard = ({error}) => {
+const ErrorCard = ({error,errortwo}) => {
     return (
-        <div className={error === "" ? "error_alert" : "show_error_alert"}>
-           <h3>Uh-oh!! </h3> <h5> {error}</h5>
+        <div className={error === "" ? "hide-error-alert" : "error-alert"}>
+            <small> {error}</small>
+            <small>{errortwo}</small>
         </div>
     )
 }

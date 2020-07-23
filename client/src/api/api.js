@@ -1,12 +1,11 @@
 
 
+export const fetchUsers=async(gender="female")=>{
 
-
-export const fetchUsers=async()=>{
-
-    let users = await fetch(`https://randomuser.me/api/`)
-
-    return users;
+    let json = await fetch(`https://randomuser.me/api?results=25&gender=${gender}`)
+    let  {results} = await json.json();
+        console.log(results)
+         return results;
 }
 
 
