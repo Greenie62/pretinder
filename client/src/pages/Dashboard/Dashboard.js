@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import {Header,Panel} from "../../components/dashboard"
+import {Header,Panel,Navbar} from "../../components/dashboard"
 import {fetchUsers} from "../../api/api.js"
 import "./Dashboard.css"
 
 const Dashboard = () => {
     const [data,setData] = useState([])
+    const [likes,setLikes] = useState(0);
+    const [loveToken,setLoveToken] = useState(10)
+    const [superMatch,setSuperMatch] = useState(0)
 
 
     useEffect(()=>{
@@ -27,8 +30,15 @@ const Dashboard = () => {
     return (
         <div>
             <Header/>
+            <Navbar likes={likes}
+                    superMatch={superMatch}/>
             <div className="panel_content_container">
-            <Panel data={data}/>
+            <Panel data={data}
+                   likes={likes}
+                   loveToken={loveToken}
+                   setLikes={setLikes}
+                   superMatch={superMatch}
+                   setSuperMatch={setSuperMatch}/>
             </div>
         </div>
     )
