@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import party from "../../assets/party.jpg"
 
-const Panel = ({data}) => {
+const Panel = ({data,loveToken}) => {
     const [count,setCount] = useState(0)
 
 
@@ -66,7 +66,7 @@ const Panel = ({data}) => {
             <div className="image_reaction_row">
                 <div className="reaction_div"> <i className="fas fa-check check"></i> Like </div>
                 <div className="reaction_div"> <i className="fas fa-times x"></i> Dislike </div>
-                <div className="reaction_div"> <i className="fas fa-heart heart"></i> Love<small className="loveTokenCount">(10)</small> </div>
+                <div className="reaction_div"> <i className="fas fa-heart heart"></i> Love<small className="loveTokenCount">({loveToken})</small> </div>
                 </div>
             
         </div>

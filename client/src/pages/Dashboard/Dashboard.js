@@ -38,6 +38,8 @@ const Dashboard = () => {
                    loveToken={loveToken}
                    setLikes={setLikes}
                    superMatch={superMatch}
+                   loveToken={loveToken}
+                   setLoveToken={setLoveToken}
                    setSuperMatch={setSuperMatch}/>
             </div>
         </div>
