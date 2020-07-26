@@ -1,12 +1,14 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {BrowserRouter as Router, Route, Redirect} from "react-router-dom"
-import {Landing, Dashboard} from "./pages"
+import {Landing, Dashboard,Profile} from "./pages"
 
 // import "./App.css"
 
 
 
 const App = () =>{
+
+    const [profileinfo,setProfileInfo] = useState({})
 
 
         useEffect(()=>{
@@ -24,7 +26,8 @@ const App = () =>{
             <Router>
                 {window.location.pathname === "/" ? <Redirect to="/landing"/> : null}
                 <Route exact path="/landing" render={(props)=><Landing {...props}/>}/>
-                <Route path="/dashboard" component={Dashboard}/>
+                <Route path="/dashboard" render={()=><Dashboard profileinfo={profileinfo} setProfileInfo={setProfileInfo}/>}/>
+                <Route path="/profile/" render={()=><Profile profileinfo={profileinfo}/>}/>
             </Router>
         )
 

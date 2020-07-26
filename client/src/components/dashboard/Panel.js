@@ -1,8 +1,22 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {Link} from "react-router-dom"
 import party from "../../assets/party.jpg"
+import AlertModal from "./AlertModal"
 
-const Panel = ({data,loveToken}) => {
+const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,superlikes,setSuperLikes,setLikes}) => {
     const [count,setCount] = useState(0)
+    const [showLoveCount,setShowLoveCount] = useState(false)
+    const [h2Alert,seth2Alert] = useState("")
+    const [h5Alert,seth5Alert] = useState("")
+
+
+    const setProfileState=()=>{
+        setProfileInfo(data[count+1])
+    }
+
+    useEffect(()=>{
+        setProfileState()
+    },[])
 
 
     const changePic=(e)=>{
@@ -28,7 +42,9 @@ const Panel = ({data,loveToken}) => {
             console.log("cant decrement anymore dickhead")
         }
         else{
+        setProfileState()
         setCount(count-1)
+        
         }
     }
 
@@ -37,8 +53,68 @@ const Panel = ({data,loveToken}) => {
             console.log("cant increment anymore dickhead")
         }
         else{
+        setProfileState()
         setCount(count+1)
+
         }
+    }
+    
+    const likePerson=()=>{
+        console.log("likePerson()")
+
+        if(yayOrNay("like")){
+            setLikes(likes+1)
+            addDialogue()
+        }
+    }
+
+    const lovePerson=()=>{
+        if(loveToken <= 0){
+            console.log("no more love tokens romeo!")
+        }
+        else{
+        setLoveToken(loveToken-1)
+        setShowLoveCount(true)
+        if(yayOrNay('love')){
+            addDialogue()
+            setSuperLikes(superlikes+1)
+        }
+        setTimeout(()=>{
+            setShowLoveCount(false)
+        },1750)
+        }
+    }
+
+
+    const yayOrNay=(reaction)=>{
+        let verdict=false
+        switch(reaction){
+
+            case "love":
+                verdict = Math.random() > .6;
+              
+            break;
+            
+            case "like":
+                verdict = Math.random() > .3;
+            break;
+
+            default:
+                console.log("error")
+        }
+        console.log(verdict);
+        return verdict
+    }
+
+    const addDialogue=()=>{
+        let h2Greetings=["Awesome!", "Congrats!!","Whoahhhh","Oooooo!!", "Wow!!"]
+        
+        seth2Alert(h2Greetings[h2Greetings.length * Math.random() | 0])
+        seth5Alert("They like you  back! :)")
+
+        setTimeout(()=>{
+            seth2Alert("")
+        },4500)
     }
   
     return (
@@ -49,7 +125,9 @@ const Panel = ({data,loveToken}) => {
        
         <div className="panel_card">
             <div className='panel_column'>
-<h1 data-direction="left" onClick={(e)=>changePic(e)} className="arrow_icon"> <i data-direction="left" className="fa fa-arrow-left" aria-hidden="true"></i></h1>
+                <AlertModal h2Alert={h2Alert} h5Alert={h5Alert}/>
+<h1 className="h1_column_div" data-direction="left" onClick={(e)=>changePic(e)} className="arrow_icon"> <i data-direction="left" className="fa fa-arrow-left" aria-hidden="true"></i></h1>
+        <div className='empty_div'></div>
             </div>
            
             <div className="panel_profile_column">
@@ -61,12 +139,13 @@ const Panel = ({data,loveToken}) => {
             </div>
             
             <div className="image_info_div">
+                <Link to="/profile">View Profile</Link>
                 <h2 className="h4_image_name">{data[count].name.first} {data[count].name.last}</h2>
             </div>
             <div className="image_reaction_row">
-                <div className="reaction_div"> <i className="fas fa-check check"></i> Like </div>
+                <div onClick={likePerson} className="reaction_div"> <i className="fas fa-check check"></i> Like </div>
                 <div className="reaction_div"> <i className="fas fa-times x"></i> Dislike </div>
-                <div className="reaction_div"> <i className="fas fa-heart heart"></i> Love<small className="loveTokenCount">({loveToken})</small> </div>
+                <div onClick={lovePerson} className="reaction_div"> <i className="fas fa-heart heart"></i> Love<small style={{display: showLoveCount  ? 'block' : 'none'}}>({loveToken})</small> </div>
                 </div>
             
         </div>
