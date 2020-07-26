@@ -1,13 +1,16 @@
 import React from 'react'
-import {Link} from "react-router-dom"
+import {Header, Footer, ProfileCard} from "../../components/profile"
 import "./Profile.css"
 
-const Profile = (props) => {
-    console.log(props)
+const Profile = ({profileinfo}) => {
+    console.log(profileinfo)
+  
+
     return (
         <div>
-            <h1>Profile Page</h1>
-            <Link to="/dashboard">Home</Link>
+          <Header/>
+          <ProfileCard profileinfo={profileinfo}/>
+          <Footer/>
         </div>
     )
 }

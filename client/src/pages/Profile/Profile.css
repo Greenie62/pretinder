@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.profile_header_parent{
+    height:10vh;
+    background:linear-gradient(to right,red,red,black);
+    color:white;
+}
+
+.profile_header > h2{
+    letter-spacing:4px;
+    text-align:center;
+    text-shadow:2px 1px black;
+    top:20px;
+}
+
+.profile_header_link{
+    text-decoration:none;
+    color:white;
+    left:85%;
+    top:10px;
+}

@@ -8,15 +8,10 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
     const [showLoveCount,setShowLoveCount] = useState(false)
     const [h2Alert,seth2Alert] = useState("")
     const [h5Alert,seth5Alert] = useState("")
+    const [showProfileLink, setShowProfileLink] = useState(false)
 
 
-    const setProfileState=()=>{
-        setProfileInfo(data[count+1])
-    }
 
-    useEffect(()=>{
-        setProfileState()
-    },[])
 
 
     const changePic=(e)=>{
@@ -38,22 +33,24 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
     }
 
     const countDown=()=>{
+        setShowProfileLink(false)
+
         if(count <= 0){
             console.log("cant decrement anymore dickhead")
         }
         else{
-        setProfileState()
         setCount(count-1)
         
         }
     }
 
     const countUp=()=>{
+        setShowProfileLink(!false)
+
         if(count > data.length-1){
             console.log("cant increment anymore dickhead")
         }
         else{
-        setProfileState()
         setCount(count+1)
 
         }
@@ -65,8 +62,16 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         if(yayOrNay("like")){
             setLikes(likes+1)
             addDialogue()
+            setShowProfileLink(!showProfileLink)
+
         }
+        else{
+        setTimeout(()=>{
+            countUp()
+        },1000)
     }
+    }
+
 
     const lovePerson=()=>{
         if(loveToken <= 0){
@@ -78,11 +83,18 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         if(yayOrNay('love')){
             addDialogue()
             setSuperLikes(superlikes+1)
+            setShowProfileLink(!showProfileLink)
         }
+        else{
+            setTimeout(()=>{
+                countUp()
+            },2000)
+        }
+    }
         setTimeout(()=>{
             setShowLoveCount(false)
         },1750)
-        }
+    
     }
 
 
@@ -114,7 +126,7 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
 
         setTimeout(()=>{
             seth2Alert("")
-        },4500)
+        },2500)
     }
   
     return (
@@ -139,12 +151,12 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
             </div>
             
             <div className="image_info_div">
-                <Link to="/profile">View Profile</Link>
+                <Link style={{display:showProfileLink ? "block" : "none"}} onClick={()=>setProfileInfo(data[count])} to="/profile">View Profile</Link>
                 <h2 className="h4_image_name">{data[count].name.first} {data[count].name.last}</h2>
             </div>
             <div className="image_reaction_row">
                 <div onClick={likePerson} className="reaction_div"> <i className="fas fa-check check"></i> Like </div>
-                <div className="reaction_div"> <i className="fas fa-times x"></i> Dislike </div>
+                <div onClick={countUp} className="reaction_div"> <i className="fas fa-times x"></i> Dislike </div>
                 <div onClick={lovePerson} className="reaction_div"> <i className="fas fa-heart heart"></i> Love<small style={{display: showLoveCount  ? 'block' : 'none'}}>({loveToken})</small> </div>
                 </div>
             
