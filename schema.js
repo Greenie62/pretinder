@@ -18,6 +18,17 @@ const UserType = new GraphQLObjectType({
     })
 })
 
+const MessageType = new GraphQLObjectType({
+    name:"Message",
+    fields:()=>({
+        sender:{type:GraphQLString},
+        receiver:{type:GraphQLString},
+        message:{type:GraphQLString},
+        title:{type:GraphQLString},
+      
+    })
+})
+
 
 
 const RootQuery = new GraphQLObjectType({

@@ -30,6 +30,14 @@ const userschema = new Schema({
         type:String,
         required:true
     },
+    likes:{
+        type:Number,
+        default:0
+    },
+    superlikes:{
+        type:Number,
+        default:0,
+    },
     matches:{
         type:Array,
         default:[]

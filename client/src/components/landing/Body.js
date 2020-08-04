@@ -7,7 +7,7 @@ import party from "../../assets/party.jpg"
 
 const Body = (props) => {
     const [error,setError] = useState("")
-    const [errortwo,setErrorTwo] = useState("")
+    const [errorTwo,setErrorTwo] = useState("")
 
 
 
@@ -62,12 +62,21 @@ const Body = (props) => {
             console.log(res);
 
             if(res.response){
+
+                if(res.token){
+                    localStorage.token=res.token;
+                    setTimeout(()=>{
+                        props.history.push("/admin")
+                    },1250)
+                }
+                else{
                 setToStorage(res.dbuser)
                 setError(`Welcome ${res.dbuser.username}!`);
                 setErrorTwo("Redirecting you to the party!")
                 setTimeout(()=>{
                     props.history.push("/dashboard")
                 },2000)
+            }
             }
             else{
                 setError(res.message);
@@ -100,6 +109,7 @@ const Body = (props) => {
        
         <ClientCard isNew={props.isNew}
                     error={error}
+                    errorTwo={errorTwo}
                     postLogin={postLogin}
                     postUser={postUser}/>
         

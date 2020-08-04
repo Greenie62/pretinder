@@ -1,11 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const methodOverride = require("method-override")
 const cors = require('cors')
 const path = require('path')
 
 
 const app = express();
 const PORT = process.env.PORT || 3005;
+
+app.use(methodOverride("_method"))
+
+const authenticateUser = require("./middleware/auth.js")
+
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
@@ -28,8 +34,9 @@ app.use(express.json());
 
 app.use("/db",require("./routes/db"));
 app.use("/api",require("./routes/api"))
+app.use("/auth",require("./routes/auth"))
 
-
+app.use('/auth',authenticateUser)
 
 
 app.get("/test",(req,res)=>{

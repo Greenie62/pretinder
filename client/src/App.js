@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {BrowserRouter as Router, Route, Redirect} from "react-router-dom"
-import {Landing, Dashboard,Profile} from "./pages"
+import {Landing, Dashboard,Profile, Admin} from "./pages"
 
-// import "./App.css"
+ import "./App.css"
 
 
 
@@ -23,12 +23,15 @@ const App = () =>{
 
 
         return(
+            <div className='main_app'>
             <Router>
                 {window.location.pathname === "/" ? <Redirect to="/landing"/> : null}
                 <Route exact path="/landing" render={(props)=><Landing {...props}/>}/>
                 <Route path="/dashboard" render={()=><Dashboard profileinfo={profileinfo} setProfileInfo={setProfileInfo}/>}/>
                 <Route path="/profile/" render={()=><Profile profileinfo={profileinfo}/>}/>
+                <Route exact path="/admin" component={Admin}/>
             </Router>
+            </div>
         )
 
 }

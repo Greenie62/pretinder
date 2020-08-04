@@ -3,15 +3,15 @@ import {Link} from "react-router-dom"
 import party from "../../assets/party.jpg"
 import AlertModal from "./AlertModal"
 
-const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,superlikes,setSuperLikes,setLikes}) => {
+const Panel = ({toggleAmore, showBuyModal, setShowBuyModal, setToggleAmore,profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,superlikes,setSuperLikes,setLikes,clientName}) => {
     const [count,setCount] = useState(0)
     const [showLoveCount,setShowLoveCount] = useState(false)
     const [h2Alert,seth2Alert] = useState("")
     const [h5Alert,seth5Alert] = useState("")
-    const [showProfileLink, setShowProfileLink] = useState(false)
+    const [showCover,setShowCover] = useState(false)
+    const [showProfileLink, setShowProfileLink] = useState(false);
 
-
-
+  
 
 
     const changePic=(e)=>{
@@ -32,7 +32,16 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         
     }
 
+    const toggleCover=()=>{
+        setShowCover(true)
+        setTimeout(()=>{
+            setShowCover(false)
+        },1000);
+    }
+
     const countDown=()=>{
+        toggleCover()
+        setTimeout(()=>{
         setShowProfileLink(false)
 
         if(count <= 0){
@@ -42,10 +51,13 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         setCount(count-1)
         
         }
+    },1000);
     }
 
     const countUp=()=>{
-        setShowProfileLink(!false)
+        toggleCover()
+        setTimeout(()=>{
+        setShowProfileLink(false)
 
         if(count > data.length-1){
             console.log("cant increment anymore dickhead")
@@ -54,6 +66,7 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         setCount(count+1)
 
         }
+    },1000)
     }
     
     const likePerson=()=>{
@@ -61,12 +74,18 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
 
         if(yayOrNay("like")){
             setLikes(likes+1)
+            postToBack({username:clientName,reaction:"likes"})
             addDialogue()
             setShowProfileLink(!showProfileLink)
 
+
+            let profile_info=data[count];
+            profile_info.like_status="like";
+            setProfileInfo(profile_info)
+
         }
         else{
-        setTimeout(()=>{
+       setTimeout(()=>{
             countUp()
         },1000)
     }
@@ -76,6 +95,7 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
     const lovePerson=()=>{
         if(loveToken <= 0){
             console.log("no more love tokens romeo!")
+            setShowBuyModal(!showBuyModal)
         }
         else{
         setLoveToken(loveToken-1)
@@ -84,6 +104,18 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
             addDialogue()
             setSuperLikes(superlikes+1)
             setShowProfileLink(!showProfileLink)
+            setToggleAmore(!toggleAmore);
+            setTimeout(()=>{
+                setToggleAmore(false)
+            },5500)
+
+            
+                let profile_info=data[count];
+                profile_info.like_status="superlike";
+                setProfileInfo(profile_info)
+
+        
+        
         }
         else{
             setTimeout(()=>{
@@ -128,6 +160,18 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
             seth2Alert("")
         },2500)
     }
+
+
+    const postToBack=(data)=>{
+        console.log(data)
+        fetch(`http://localhost:3005/db/addreaction/${data.username}/${data.reaction}`)
+        .then(res=>res.json())
+        .then(res=>{
+            console.log(res)
+        })
+    }
+
+  
   
     return (
     <div className="panel_parent_card">
@@ -147,11 +191,14 @@ const Panel = ({profileinfo,setProfileInfo,data,loveToken,setLoveToken,likes,sup
         <div className="image_frame_parent">
             
             <div className="image_frame">
+                <div className={showCover ? "show_cover" :"cover"}>
+                  
+                </div>
                  <img src={data[count].picture.large} className="main_img"/>
             </div>
             
             <div className="image_info_div">
-                <Link style={{display:showProfileLink ? "block" : "none"}} onClick={()=>setProfileInfo(data[count])} to="/profile">View Profile</Link>
+                <Link className="profile_link" style={{display:showProfileLink ? "block" : "none"}}  to="/profile">View Profile</Link>
                 <h2 className="h4_image_name">{data[count].name.first} {data[count].name.last}</h2>
             </div>
             <div className="image_reaction_row">
